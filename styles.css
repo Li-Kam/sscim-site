@@ -1,0 +1,380 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   SSCIM — parent studio site
+   Editorial DNA shared with MoonKeep (serif display, tracked caps, warm
+   restraint) on its own palette: warm ink + parchment + burnished bronze.
+   MoonKeep's midnight-navy/gold appears only inside its product card.
+   ────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Surfaces — warm ink (espresso, not navy) */
+  --ink:           #16120E;
+  --ink-alt:       #1D1812;
+  --ink-raised:    #262019;
+  --ink-elevated:  #302921;
+
+  /* Parchment tier (light sections) */
+  --parchment:     #F3EDE0;
+  --parchment-alt: #EAE2D0;
+
+  /* Foreground */
+  --fg:            #EFE7D6;
+  --fg-muted:      #C9BEA8;
+  --fg-subtle:     #8B8271;
+  --fg-on-light:   #221C15;
+  --fg-on-light-muted: #5C5442;
+
+  /* Accent — burnished bronze (adjacent to MoonKeep's gold, but its own) */
+  --bronze:        #C99860;
+  --bronze-deep:   #A87840;
+  --bronze-soft:   #E2C193;
+  --bronze-glow:   rgba(201, 152, 96, 0.14);
+
+  /* MoonKeep brand tokens — used only in its product card */
+  --mk-navy:       #0A1230;
+  --mk-navy-raised:#1A2148;
+  --mk-gold:       #EBD3A2;
+  --mk-cream:      #F2EADA;
+
+  /* Hairlines */
+  --border:        rgba(239, 231, 214, 0.10);
+  --hairline:      rgba(239, 231, 214, 0.16);
+  --border-on-light: rgba(34, 28, 21, 0.14);
+
+  /* Type */
+  --display: "Fraunces", Georgia, serif;
+  --ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Rhythm */
+  --gutter: clamp(24px, 6vw, 72px);
+  --section-gap: clamp(72px, 12vh, 140px);
+  --radius-card: 20px;
+  --radius-large: 28px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--ui);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--fg);
+  background: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--bronze); color: var(--ink); }
+
+/* ── Shared primitives ─────────────────────────────────────────────────── */
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.tracked {
+  font-family: var(--ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+}
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 420;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-solid { background: var(--bronze); color: var(--ink); }
+.btn-solid:hover { background: var(--bronze-soft); }
+.btn-ghost { border: 1px solid var(--hairline); color: var(--fg); }
+.btn-ghost:hover { border-color: var(--bronze); color: var(--bronze-soft); }
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+.wordmark svg { display: block; }
+
+.site-nav { display: flex; gap: 34px; }
+.site-nav a {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+  transition: color 0.2s ease;
+}
+.site-nav a:hover, .site-nav a.active { color: var(--bronze-soft); }
+
+/* ── Hero ──────────────────────────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  padding: clamp(96px, 18vh, 200px) 0 var(--section-gap);
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -240px;
+  right: -160px;
+  width: 640px;
+  height: 640px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--bronze-glow), transparent 65%);
+  pointer-events: none;
+}
+
+.hero .kicker { margin-bottom: 28px; color: var(--bronze); }
+
+.hero h1 {
+  font-size: clamp(44px, 7.5vw, 88px);
+  max-width: 15ch;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--bronze-soft);
+}
+
+.hero p.lede {
+  margin-top: 30px;
+  max-width: 52ch;
+  font-size: clamp(16px, 2vw, 19px);
+  color: var(--fg-muted);
+}
+
+.hero .actions { margin-top: 44px; display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* ── Section scaffolding ───────────────────────────────────────────────── */
+
+section { padding: var(--section-gap) 0; }
+
+.section-head { margin-bottom: 56px; }
+.section-head .kicker { color: var(--bronze); margin-bottom: 18px; }
+.section-head h2 { font-size: clamp(30px, 4.4vw, 46px); }
+.section-head p {
+  margin-top: 16px;
+  max-width: 56ch;
+  color: var(--fg-muted);
+}
+
+/* ── Principles ────────────────────────────────────────────────────────── */
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+.principle {
+  padding: 30px 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--ink-alt);
+}
+.principle .num {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--bronze);
+}
+.principle h3 { margin-top: 14px; font-size: 21px; }
+.principle p { margin-top: 10px; font-size: 14.5px; color: var(--fg-muted); }
+
+/* ── Apps ──────────────────────────────────────────────────────────────── */
+
+.app-card {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  border-radius: var(--radius-large);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+/* MoonKeep card — the one place MoonKeep's own palette shows up */
+.app-card.moonkeep { background: var(--mk-navy); }
+
+.app-card .app-copy { padding: clamp(32px, 5vw, 60px); }
+.app-card .app-copy .kicker { color: var(--mk-gold); margin-bottom: 20px; }
+.app-card h3 {
+  font-size: clamp(30px, 4vw, 42px);
+  color: var(--mk-cream);
+}
+.app-card h3 em { font-style: italic; color: var(--mk-gold); }
+.app-card p { margin-top: 18px; color: rgba(242, 234, 218, 0.72); max-width: 44ch; }
+
+.app-card ul {
+  margin-top: 26px;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+.app-card ul li {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 14.5px;
+  color: rgba(242, 234, 218, 0.82);
+}
+.app-card ul li::before {
+  content: "◦";
+  color: var(--mk-gold);
+  flex-shrink: 0;
+}
+
+.app-card .app-actions { margin-top: 36px; display: flex; gap: 14px; flex-wrap: wrap; }
+.app-card .btn-solid { background: var(--mk-gold); color: var(--mk-navy); }
+.app-card .btn-solid:hover { background: #F5E4BF; }
+.app-card .btn-ghost { border-color: rgba(242, 234, 218, 0.22); color: var(--mk-cream); }
+.app-card .btn-ghost:hover { border-color: var(--mk-gold); color: var(--mk-gold); }
+
+.app-visual {
+  position: relative;
+  min-height: 320px;
+  background:
+    radial-gradient(circle at 70% 25%, rgba(235, 211, 162, 0.18), transparent 55%),
+    linear-gradient(160deg, var(--mk-navy-raised), var(--mk-navy));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.app-visual svg { width: min(70%, 300px); height: auto; }
+
+.apps-coming {
+  margin-top: 22px;
+  padding: 26px 30px;
+  border: 1px dashed var(--hairline);
+  border-radius: var(--radius-card);
+  color: var(--fg-subtle);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ── Light band (about) ────────────────────────────────────────────────── */
+
+.band-light {
+  background: var(--parchment);
+  color: var(--fg-on-light);
+}
+.band-light .kicker { color: var(--bronze-deep); }
+.band-light p { color: var(--fg-on-light-muted); }
+.band-light .about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 6vw, 80px);
+  align-items: start;
+}
+.band-light .about-grid h2 { font-size: clamp(30px, 4.4vw, 46px); }
+.band-light .about-grid .kicker { margin-bottom: 18px; }
+.band-light .about-copy p + p { margin-top: 18px; }
+
+/* ── Contact / footer ──────────────────────────────────────────────────── */
+
+.contact { text-align: center; }
+.contact h2 { font-size: clamp(30px, 4.4vw, 46px); }
+.contact p { margin: 18px auto 0; max-width: 46ch; color: var(--fg-muted); }
+.contact .actions { margin-top: 40px; display: flex; justify-content: center; gap: 16px; }
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 44px 0 56px;
+}
+.site-footer .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+.site-footer .fine {
+  font-size: 12.5px;
+  color: var(--fg-subtle);
+}
+.site-footer nav { display: flex; gap: 26px; }
+.site-footer nav a {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+  transition: color 0.2s ease;
+}
+.site-footer nav a:hover { color: var(--bronze-soft); }
+
+/* ── Prose pages (privacy / support / product) ─────────────────────────── */
+
+.prose-page { padding: clamp(72px, 12vh, 120px) 0 var(--section-gap); }
+.prose-page .kicker { color: var(--bronze); margin-bottom: 20px; }
+.prose-page h1 { font-size: clamp(36px, 5.5vw, 60px); }
+.prose {
+  margin-top: 44px;
+  max-width: 68ch;
+}
+.prose h2 {
+  font-size: 26px;
+  margin-top: 44px;
+  margin-bottom: 14px;
+}
+.prose p { color: var(--fg-muted); margin-bottom: 16px; }
+.prose ul { margin: 0 0 16px 1.2em; color: var(--fg-muted); }
+.prose li { margin-bottom: 8px; }
+.prose a { color: var(--bronze-soft); border-bottom: 1px solid var(--bronze-deep); }
+.prose .updated { font-size: 13px; color: var(--fg-subtle); margin-bottom: 32px; }
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+
+@media (max-width: 820px) {
+  .app-card { grid-template-columns: 1fr; }
+  .app-visual { min-height: 240px; order: -1; }
+  .band-light .about-grid { grid-template-columns: 1fr; }
+  .site-nav { gap: 22px; }
+  .site-nav a.hide-sm { display: none; }
+}
